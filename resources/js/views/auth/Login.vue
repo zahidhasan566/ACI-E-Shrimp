@@ -84,7 +84,7 @@ export default {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
-    background-image: url(http://localhost/aci_e_shrimp/public/assets/shrimp/orangeshirmp.jpg) !important;
+    background-image: url(https://app.acibd.com/aci_e_shrimp/public/assets/shrimp/orangeshirmp.jpg) !important;
     min-height: 100VH;
     position: absolute;
     width: 100%;

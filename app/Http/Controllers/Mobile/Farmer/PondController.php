@@ -34,12 +34,13 @@ class PondController extends Controller
 
         //Data Insert
         try {
-
+            $uploadFileUrl = DeviceService::uploadFileUrl();
             $getImage = $request->PondImage;
             $imageName = Auth::user()->Id.'-'.time().'.'.$getImage->extension();
+            $Path = $uploadFileUrl. 'assets/farmerPondImages/';
             $imagePath = public_path(). '/assets/farmerPondImages/';
             $getImage->move($imagePath, $imageName);
-            $imagePathWithName = $imagePath.$imageName;
+            $imagePathWithName = $Path.$imageName;
 
             DB::beginTransaction();
             $pond = new Ponds();

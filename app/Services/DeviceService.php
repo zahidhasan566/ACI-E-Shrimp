@@ -47,5 +47,20 @@ class DeviceService
 
         return $browser;
     }
+    public static  function baseUrl(){
+        return sprintf(
+            "%s://%s",
+            isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+            $_SERVER['SERVER_NAME']
+        );
+    }
+    public static  function uploadFileUrl(){
+       $uploadFileUrl =  sprintf(
+            "%s://%s",
+            isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off' ? 'https' : 'http',
+            $_SERVER['SERVER_NAME']
+        );
+       return  $uploadFileUrl.'/aci_e_shrimp/public/';
+    }
 }
 

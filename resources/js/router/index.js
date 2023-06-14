@@ -5,7 +5,7 @@ import Dashboard from '../views/dashboard/Index.vue';
 import Login from '../views/auth/Login.vue';
 import {baseurl} from '../base_url'
 import NotFound from '../views/404/Index';
-
+import EventList from "../views/admin/setting/events/EventList.vue";
 import Users from '../views/users/Index';
 
 
@@ -52,6 +52,12 @@ const routes = [
                 path: baseurl + 'users',
                 name: 'Users',
                 component: Users
+            },
+            //ADMIN ROUTE | Event
+            {
+                path: baseurl + 'setting/advisory',
+                name: 'EventList',
+                component: EventList
             },
 
         ],

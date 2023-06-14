@@ -38,10 +38,17 @@ Route::group(['middleware' => ['jwt:api']], function () {
         Route::post('password-change',[\App\Http\Controllers\Common\HelperController::class,'passwordChange']);
     });
 
-    Route::group(['prefix' => 'setting'],function () {
-        Route::post('get-all-advisory', [\App\Http\Controllers\Admin\Setting\Advisory\AdvisoryController::class, 'index']);
-    });
+    // ADMIN ACTION
+    Route::group(['prefix' => 'admin'],function () {
+        //Setting
+        Route::post('setting/advisoryList', [\App\Http\Controllers\Admin\Setting\Advisory\AdvisoryController::class, 'index']);
 
+//        //Event
+        Route::post('setting/eventList/add-event-list-data', [\App\Http\Controllers\Admin\Setting\Advisory\AdvisoryController::class,'store']);
+        Route::get('setting/eventList/get-event-list-info/{EventID}', [\App\Http\Controllers\Admin\Setting\Advisory\AdvisoryController::class,'getEventInfo']);
+        Route::post('update/setting/eventList/add-event-list-data', [\App\Http\Controllers\Admin\Setting\Advisory\AdvisoryController::class,'updateEventData']);
+
+    });
 
 });
 

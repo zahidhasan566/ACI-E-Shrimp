@@ -29,7 +29,10 @@ Route::group(['middleware' => ['jwt']], function () {
         Route::post('get-all-pond-information',[\App\Http\Controllers\Mobile\Farmer\PondController::class,'getAllPondInformation']);
         //HARVEST
         Route::post('store-harvest-data',[\App\Http\Controllers\Mobile\Farmer\HarvestController::class,'storeHarvestData']);
+
         //get dashboardData
+        Route::post('get-all-shrimp-advisory-information',[\App\Http\Controllers\Mobile\Farmer\ShrimpAdvisoryController::class,'getAllShrimpAdvisoryInformation']);
+
        // Route::post('get-dashboard-info',[\App\Http\Controllers\Mobile\La\Dashborad\DashboardController::class,'index']);
     });
 
@@ -43,6 +46,10 @@ Route::group(['middleware' => ['jwt']], function () {
     Route::group(['prefix' => 'buyer'],function () {
         //FARMER LIST
         Route::post('get-all-farmers-data',[\App\Http\Controllers\Mobile\Buyer\BuyerFarmerController::class,'getAllFarmerInformation']);
+
+        //Product Create
+        Route::post('store-product-data',[\App\Http\Controllers\Mobile\Buyer\BuyerProductController::class,'storeProductInformation']);
+        Route::post('get-all-products-data',[\App\Http\Controllers\Mobile\Buyer\BuyerProductController::class,'getAllProductInformation']);
     });
 
 

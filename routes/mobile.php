@@ -33,10 +33,16 @@ Route::group(['middleware' => ['jwt']], function () {
        // Route::post('get-dashboard-info',[\App\Http\Controllers\Mobile\La\Dashborad\DashboardController::class,'index']);
     });
 
-    //BUYER USERS
+    //FACTORY USERS
     Route::group(['prefix' => 'factory'],function () {
         //FARMER LIST
         Route::post('get-all-farmers-data',[\App\Http\Controllers\Mobile\Factory\FarmerController::class,'getAllFarmerInformation']);
+    });
+
+    //BUYERS USERS
+    Route::group(['prefix' => 'buyer'],function () {
+        //FARMER LIST
+        Route::post('get-all-farmers-data',[\App\Http\Controllers\Mobile\Buyer\BuyerFarmerController::class,'getAllFarmerInformation']);
     });
 
 

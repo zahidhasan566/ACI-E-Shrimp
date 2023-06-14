@@ -199,6 +199,8 @@ export default {
             roles: [],
             allSubMenu: [],
             allSubMenuId: [],
+            existingUserIDs:[],
+            userIdError:false,
         }
     },
     computed: {},
@@ -214,6 +216,7 @@ export default {
                 console.log(row.Id)
                 this.axiosGet('user/get-user-info/' + row.Id, function (response) {
                     var user = response.data;
+                    console.log( "test"+ response.data.user_submenu)
                     instance.title = 'Update User';
                     instance.buttonText = "Update";
                     instance.Name = user.Name;
@@ -256,7 +259,6 @@ export default {
                 this.getData();
             }
             $("#add-edit-dept").modal("toggle");
-            // $(".error-message").html("");
         })
     },
     destroyed() {
@@ -271,7 +273,6 @@ export default {
             this.axiosGet('user/modal', function (response) {
                 instance.roles = response.roles;
                 instance.allSubMenu = response.allSubMenus;
-                console.log('all'+ instance.allSubMenu)
             }, function (error) {
 
             });

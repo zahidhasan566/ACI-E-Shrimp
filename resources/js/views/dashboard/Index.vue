@@ -5,7 +5,7 @@
             <div class="col-sm-6">
                 <h4 class="page-title">Dashboard</h4>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active">Welcome to LA Monitoring Admin Dashboard</li>
+                    <li class="breadcrumb-item active">Welcome to ACI E Shrimp Admin Dashboard</li>
                 </ol>
             </div>
             <div class="col-sm-6">
@@ -27,7 +27,7 @@
                 <div class="card-body">
                     <div class="mb-4">
                         <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/01.png" alt="" /></div>
-                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Farms</h5>
+                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Farmers</h5>
                         <h4 class="font-500">1,685 <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
                     </div>
                     <div class="pt-2">
@@ -44,7 +44,7 @@
                 <div class="card-body">
                     <div class="mb-4">
                         <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/02.png" alt="" /></div>
-                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Breeding</h5>
+                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Buyers</h5>
                         <h4 class="font-500">52,368 <i class="mdi mdi-arrow-down text-danger ml-2"></i></h4>
                     </div>
                     <div class="pt-2">
@@ -61,7 +61,7 @@
                 <div class="card-body">
                     <div class="mb-4">
                         <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/03.png" alt="" /></div>
-                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total LA</h5>
+                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Ponds</h5>
                         <h4 class="font-500">15.8 <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
                     </div>
                     <div class="pt-2">

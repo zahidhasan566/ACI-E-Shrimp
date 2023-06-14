@@ -18,6 +18,7 @@ class Menu extends Model
     public function subMenus() {
         return $this->hasMany(SubMenu::class,'MenuID','MenuID')
             ->join('SubMenuPermission','SubMenuPermission.SubMenuID','SubMenus.SubMenuID')
+            ->where('SubMenus.Status',1)
             ->where('SubMenuPermission.UserId',Auth::user()->Id)->orderBy('SubMenuOrder');
     }
 

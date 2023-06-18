@@ -163,6 +163,7 @@ class PondController extends Controller
                 'Ponds.Depth',
                 'Ponds.PondPreparationMethod',
                 'Ponds.PondImagePath',
+                'Ponds.CreatedAt',
             )
                 ->where('Ponds.CreatedBy',Auth::user()->Id)
                 ->paginate(10);
@@ -209,7 +210,8 @@ class PondController extends Controller
                 'PondDetails.ExpectedProductionQuantity',
                 'PondDetails.ExpectedProductionDate',
                 'PondDetails.Grade',
-                'PondDetails.Transportation'
+                'PondDetails.Transportation',
+                'PondDetails.CreatedAt',
             )
                 ->where('PondDetails.PondId',$request->PondId)
                 ->paginate(10);

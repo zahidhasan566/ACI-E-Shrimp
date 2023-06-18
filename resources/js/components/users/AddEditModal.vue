@@ -72,10 +72,10 @@
                                         </ValidationProvider>
                                     </div>
                                     <div class="col-12 col-md-6">
-                                        <ValidationProvider name="email" mode="eager" rules="required"
+                                        <ValidationProvider name="email" mode="eager"
                                                             v-slot="{ errors }">
                                             <div class="form-group">
-                                                <label for="email">Email <span class="error">*</span></label>
+                                                <label for="email">Email </label>
                                                 <input type="text" class="form-control"
                                                        :class="{'error-border': errors[0]}"
                                                        v-model="email" placeholder="Email">

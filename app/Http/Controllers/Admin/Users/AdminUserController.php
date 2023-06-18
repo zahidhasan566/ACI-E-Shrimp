@@ -45,7 +45,6 @@ class AdminUserController extends Controller
 
         $validator = Validator::make($request->all(), [
             'Name' => 'required|string',
-            'email' => 'required',
             'Address' => 'required',
             'NID' => 'required',
             'mobile' => 'required',
@@ -111,7 +110,6 @@ class AdminUserController extends Controller
     public function update(Request $request){
         $validator = Validator::make($request->all(), [
             'Name' => 'required|string',
-            'email' => 'required',
             'Address' => 'required',
             'NID' => 'required',
             'mobile' => 'required',

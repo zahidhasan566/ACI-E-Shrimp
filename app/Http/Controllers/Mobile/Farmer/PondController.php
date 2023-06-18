@@ -149,7 +149,7 @@ class PondController extends Controller
         }
 
     }
-    public function getAllPondInformation(){
+    public function getAllPondPreparationData(){
 
 
         //GET USER BASED DATA
@@ -163,7 +163,35 @@ class PondController extends Controller
                 'Ponds.Depth',
                 'Ponds.PondPreparationMethod',
                 'Ponds.PondImagePath',
+            )
+                ->where('Ponds.CreatedBy',Auth::user()->Id)
+                ->paginate(10);
 
+            return response()->json([
+                'data' =>$allPondInformation
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $exception->getMessage() . '-' . $exception->getLine()
+            ], 200);
+        }
+
+    }
+
+    //Get All Pond Preparation data
+    public function getAllPondOperationData(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'PondId' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 400);
+        }
+
+        //GET USER BASED DATA
+        try {
+            $allPondInformation = PondDetails::select(
                 'PondDetails.PondId',
                 'PondDetails.SpfPl',
                 'PondDetails.Feed',
@@ -183,8 +211,7 @@ class PondController extends Controller
                 'PondDetails.Grade',
                 'PondDetails.Transportation'
             )
-                ->leftjoin('PondDetails','PondDetails.PondId','Ponds.PondId')
-                ->where('Ponds.CreatedBy',Auth::user()->Id)
+                ->where('PondDetails.PondId',$request->PondId)
                 ->paginate(10);
 
             return response()->json([
@@ -196,7 +223,5 @@ class PondController extends Controller
                 'message' => $exception->getMessage() . '-' . $exception->getLine()
             ], 200);
         }
-
-
     }
 }

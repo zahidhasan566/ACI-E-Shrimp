@@ -26,9 +26,11 @@ Route::group(['middleware' => ['jwt']], function () {
         //POND
         Route::post('store-pond-preparation-data',[\App\Http\Controllers\Mobile\Farmer\PondController::class,'storePondPreparationData']);
         Route::post('store-pond-operation-data',[\App\Http\Controllers\Mobile\Farmer\PondController::class,'storePondOperationData']);
-        Route::post('get-all-pond-information',[\App\Http\Controllers\Mobile\Farmer\PondController::class,'getAllPondInformation']);
+        Route::post('get-all-pond-preparation-data',[\App\Http\Controllers\Mobile\Farmer\PondController::class,'getAllPondPreparationData']);
+        Route::post('get-all-pond-operation-data',[\App\Http\Controllers\Mobile\Farmer\PondController::class,'getAllPondOperationData']);
         //HARVEST
         Route::post('store-harvest-data',[\App\Http\Controllers\Mobile\Farmer\HarvestController::class,'storeHarvestData']);
+        Route::post('get-all-harvest-data',[\App\Http\Controllers\Mobile\Farmer\HarvestController::class,'getAllHarvestData']);
 
         //get dashboardData
         Route::post('get-all-shrimp-advisory-information',[\App\Http\Controllers\Mobile\Farmer\ShrimpAdvisoryController::class,'getAllShrimpAdvisoryInformation']);

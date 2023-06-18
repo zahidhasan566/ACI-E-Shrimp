@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mobile\Farmer;
 
 use App\Http\Controllers\Controller;
 use App\Models\Harvest;
+use App\Models\PondDetails;
 use App\Models\Ponds;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -46,6 +47,32 @@ class HarvestController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Harvest Created Successfully'
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $exception->getMessage() . '-' . $exception->getLine()
+            ], 200);
+        }
+    }
+
+    public function getAllHarvestData(){
+
+        //GET USER BASED DATA
+        try {
+            $allHarvestData = Harvest::select(
+                'Harvest.HarvestId',
+                'Harvest.DateOfProduction',
+                'Harvest.DateOfSalesAtFactoryGate',
+                'Harvest.AmountOfShrimp',
+                'Harvest.SalesPrice',
+
+            )
+                ->where('Harvest.CreatedBy',Auth::user()->Id)
+                ->paginate(10);
+
+            return response()->json([
+                'data' =>$allHarvestData
             ]);
         } catch (\Exception $exception) {
             return response()->json([

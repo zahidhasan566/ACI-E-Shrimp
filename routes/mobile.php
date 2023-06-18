@@ -44,15 +44,15 @@ Route::group(['middleware' => ['jwt']], function () {
         Route::post('get-all-farmers-data',[\App\Http\Controllers\Mobile\Factory\FarmerController::class,'getAllFarmerInformation']);
     });
 
-    //BUYERS USERS
-    Route::group(['prefix' => 'buyer'],function () {
-        //FARMER LIST
-        Route::post('get-all-farmers-data',[\App\Http\Controllers\Mobile\Buyer\BuyerFarmerController::class,'getAllFarmerInformation']);
 
-        //Product Create
-        Route::post('store-product-data',[\App\Http\Controllers\Mobile\Buyer\BuyerProductController::class,'storeProductInformation']);
-        Route::post('get-all-products-data',[\App\Http\Controllers\Mobile\Buyer\BuyerProductController::class,'getAllProductInformation']);
-    });
+});
 
+//BUYERS USERS
+Route::group(['prefix' => 'buyer'],function () {
+    //FARMER LIST
+    Route::post('get-all-farmers-data',[\App\Http\Controllers\Mobile\Buyer\BuyerFarmerController::class,'getAllFarmerInformation']);
 
+    //Product Create
+    Route::post('store-product-data',[\App\Http\Controllers\Mobile\Buyer\BuyerProductController::class,'storeProductInformation']);
+    Route::post('get-all-products-data',[\App\Http\Controllers\Mobile\Buyer\BuyerProductController::class,'getAllProductInformation']);
 });

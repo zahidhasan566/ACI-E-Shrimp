@@ -155,6 +155,7 @@ class PondController extends Controller
         //GET USER BASED DATA
         try {
             $allPondInformation = Ponds::select(
+                'Ponds.PondId',
                 'Ponds.Location',
                 'Ponds.LandSize',
                 'Ponds.LandOwnershipBreakdown',

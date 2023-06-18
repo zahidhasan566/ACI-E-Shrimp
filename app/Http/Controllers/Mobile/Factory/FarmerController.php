@@ -15,6 +15,7 @@ class FarmerController extends Controller
         //GET FARMER DATA
         try {
             $allFarmerInformation = Ponds::select(
+                'Ponds.PondId',
                 'Ponds.Location',
                 'Ponds.LandSize',
                 'Ponds.LandOwnershipBreakdown',
@@ -23,27 +24,8 @@ class FarmerController extends Controller
                 'Ponds.Depth',
                 'Ponds.PondPreparationMethod',
                 'Ponds.PondImagePath',
-
-                'PondDetails.PondId',
-                'PondDetails.SpfPl',
-                'PondDetails.Feed',
-                'PondDetails.BioSecurity',
-                'PondDetails.WaterPh',
-                'PondDetails.Salinity',
-                'PondDetails.PLSource',
-                'PondDetails.AmountOfLoanDue',
-                'PondDetails.Probiotic',
-                'PondDetails.PLQuantity',
-                'PondDetails.PLReleaseDate',
-                'PondDetails.FeedSource',
-                'PondDetails.FeedReleaseDate',
-                'PondDetails.DiseaseSymptoms',
-                'PondDetails.ExpectedProductionQuantity',
-                'PondDetails.ExpectedProductionDate',
-                'PondDetails.Grade',
-                'PondDetails.Transportation'
-            )
-                ->leftjoin('PondDetails','PondDetails.PondId','Ponds.PondId')
+                'Ponds.CreatedAt',
+            )->with('PondOperationInfo:PondId,SpfPl,Feed,BioSecurity,WaterPh,Salinity,PLSource,AmountOfLoanDue,Probiotic,PLQuantity,PLReleaseDate,FeedSource,FeedReleaseDate,DiseaseSymptoms,ExpectedProductionQuantity,ExpectedProductionDate,Grade,Transportation,CreatedAt')
                 ->paginate(10);
 
             return response()->json([

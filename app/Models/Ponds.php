@@ -12,4 +12,8 @@ class Ponds extends Model
     public $primaryKey = 'PondId';
     protected $guarded = [];
     public $timestamps = false;
+
+    public function PondOperationInfo(){
+        return $this->hasMany(PondDetails::class,'PondId','PondId');
+    }
 }

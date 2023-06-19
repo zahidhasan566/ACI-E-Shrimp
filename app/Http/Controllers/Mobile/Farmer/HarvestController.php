@@ -62,8 +62,8 @@ class HarvestController extends Controller
         try {
             $allHarvestData = Harvest::select(
                 'Harvest.HarvestId',
-                'Harvest.DateOfProduction',
-                'Harvest.DateOfSalesAtFactoryGate',
+                DB::raw("FORMAT(Harvest.DateOfProduction,'dd-MM-yyyy') as DateOfProduction"),
+                DB::raw("FORMAT(Harvest.DateOfSalesAtFactoryGate,'dd-MM-yyyy') as DateOfSalesAtFactoryGate"),
                 'Harvest.AmountOfShrimp',
                 'Harvest.SalesPrice',
                 DB::raw("FORMAT(Harvest.CreatedAt,'dd-MM-yyyy') as CreatedAt"),

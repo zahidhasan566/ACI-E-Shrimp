@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ponds;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class FarmerController extends Controller
 {
@@ -24,7 +25,7 @@ class FarmerController extends Controller
                 'Ponds.Depth',
                 'Ponds.PondPreparationMethod',
                 'Ponds.PondImagePath',
-                'Ponds.CreatedAt',
+                DB::raw("FORMAT(Ponds.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
             )->with('PondOperationInfo:PondId,SpfPl,Feed,BioSecurity,WaterPh,Salinity,PLSource,AmountOfLoanDue,Probiotic,PLQuantity,PLReleaseDate,FeedSource,FeedReleaseDate,DiseaseSymptoms,ExpectedProductionQuantity,ExpectedProductionDate,Grade,Transportation,CreatedAt')
                 ->paginate(10);
 

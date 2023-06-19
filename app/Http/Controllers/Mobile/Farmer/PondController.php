@@ -164,7 +164,7 @@ class PondController extends Controller
                 'Ponds.Depth',
                 'Ponds.PondPreparationMethod',
                 'Ponds.PondImagePath',
-                'Ponds.CreatedAt',
+                DB::raw("FORMAT(Ponds.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
             )
                 ->where('Ponds.CreatedBy',Auth::user()->Id)
                 ->paginate(10);
@@ -212,7 +212,7 @@ class PondController extends Controller
                 'PondDetails.ExpectedProductionDate',
                 'PondDetails.Grade',
                 'PondDetails.Transportation',
-                'PondDetails.CreatedAt',
+                DB::raw("FORMAT(PondDetails.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
             )
                 ->where('PondDetails.PondId',$request->PondId)
                 ->paginate(10);

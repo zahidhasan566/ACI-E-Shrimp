@@ -66,6 +66,7 @@ class HarvestController extends Controller
                 'Harvest.DateOfSalesAtFactoryGate',
                 'Harvest.AmountOfShrimp',
                 'Harvest.SalesPrice',
+                DB::raw("FORMAT(Harvest.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
 
             )
                 ->where('Harvest.CreatedBy',Auth::user()->Id)

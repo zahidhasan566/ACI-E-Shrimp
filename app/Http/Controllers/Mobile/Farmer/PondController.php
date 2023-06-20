@@ -151,7 +151,7 @@ class PondController extends Controller
     public function getAllPondPreparationData(Request $request){
         $page = $request->skip;
         $limit = 20;
-        $offset = $request->page == 1 ? 0 :  $limit * ($request->page - 1);
+        $offset = $page == 1 ? 0 :  $limit * ($page - 1);
 
         $validator = Validator::make($request->all(), [
             'skip' => 'required',
@@ -197,7 +197,7 @@ class PondController extends Controller
 
         $page = $request->skip;
         $limit = 20;
-        $offset = $request->page == 1 ? 0 :  $limit * ($request->page - 1);
+        $offset = $page == 1 ? 0 :  $limit * ($page - 1);
 
         $validator = Validator::make($request->all(), [
             'PondId' => 'required',

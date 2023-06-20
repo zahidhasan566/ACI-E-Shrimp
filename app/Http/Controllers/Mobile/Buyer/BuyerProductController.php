@@ -53,25 +53,40 @@ class BuyerProductController extends Controller
         }
     }
 
-    public function getAllProductInformation(){
+    public function getAllProductInformation(Request $request){
+        $skip = $request->skip;
+        $limit = 10;
 
-        $uploadFileUrl = DeviceService::uploadFileUrl();
-        $Path = $uploadFileUrl. 'assets/buyer/products/';
-
-
-        $products = BuyerProducts::select(
-            'BuyerProducts.BuyerProductId',
-            'BuyerProducts.ProductName',
-            'BuyerProducts.ProductImageName',
-             DB::raw("(CASE WHEN BuyerProducts.ProductName IS NOT NULL THEN  '$Path'+ ProductImageName ELSE NULL END) AS ImageLink "),
-            'BuyerProducts.ProductName ',
-            'BuyerProducts.ProductDetails',
-            'BuyerProducts.Status',
-        )->paginate(10);
-
-        return response()->json([
-            'data' =>$products
+        $validator = Validator::make($request->all(), [
+            'skip' => 'required',
         ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 400);
+        }
+        else {
+            try {
+                $uploadFileUrl = DeviceService::uploadFileUrl();
+                $Path = $uploadFileUrl . 'assets/buyer/products/';
 
+                $products = BuyerProducts::select(
+                    'BuyerProducts.BuyerProductId',
+                    'BuyerProducts.ProductName',
+                    'BuyerProducts.ProductImageName',
+                    DB::raw("(CASE WHEN BuyerProducts.ProductName IS NOT NULL THEN  '$Path'+ ProductImageName ELSE NULL END) AS ImageLink "),
+                    'BuyerProducts.ProductName ',
+                    'BuyerProducts.ProductDetails',
+                    'BuyerProducts.Status',
+                )->skip($skip)->take($limit)->get();
+
+                return response()->json([
+                    'data' => $products
+                ]);
+            }catch (\Exception $exception) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => $exception->getMessage() . '-' . $exception->getLine()
+                ], 200);
+            }
+        }
     }
 }

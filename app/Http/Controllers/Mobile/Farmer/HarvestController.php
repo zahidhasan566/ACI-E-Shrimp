@@ -56,7 +56,16 @@ class HarvestController extends Controller
         }
     }
 
-    public function getAllHarvestData(){
+    public function getAllHarvestData(Request $request){
+        $skip = $request->skip;
+        $limit = 10;
+
+        $validator = Validator::make($request->all(), [
+            'skip' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 400);
+        }
 
         //GET USER BASED DATA
         try {
@@ -70,7 +79,7 @@ class HarvestController extends Controller
 
             )
                 ->where('Harvest.CreatedBy',Auth::user()->Id)
-                ->paginate(10);
+                ->skip($skip)->take($limit)->get();
 
             return response()->json([
                 'data' =>$allHarvestData

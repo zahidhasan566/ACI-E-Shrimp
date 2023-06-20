@@ -47,7 +47,7 @@ class PondController extends Controller
             $pond->UserId = Auth::user()->Id;
             $pond->FarmerName = Auth::user()->Name;
             $pond->Location = $request->Location;
-            $pond->PondSizeInBigha = Auth::user()->PondSizeInBigha;
+            $pond->PondSizeInBigha = $request->PondSizeInBigha;
             $pond->LandOwnershipBreakdown = $request->LandOwnershipBreakdown;
             $pond->Variety = $request->Variety;
             $pond->NumberOfPond = $request->NumberOfPond;
@@ -107,7 +107,6 @@ class PondController extends Controller
 
         //Data Insert
         try {
-
             DB::beginTransaction();
             $pondDetails = new PondDetails();
             $pondDetails->PondId = $request->PondId;
@@ -149,7 +148,16 @@ class PondController extends Controller
         }
 
     }
-    public function getAllPondPreparationData(){
+    public function getAllPondPreparationData(Request $request){
+        $skip = $request->skip;
+        $limit = 10;
+
+        $validator = Validator::make($request->all(), [
+            'skip' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['message' => $validator->errors()], 400);
+        }
 
 
         //GET USER BASED DATA
@@ -157,7 +165,7 @@ class PondController extends Controller
             $allPondInformation = Ponds::select(
                 'Ponds.PondId',
                 'Ponds.Location',
-                'Users.PondSizeInBigha',
+                'Ponds.PondSizeInBigha',
                 'Ponds.LandOwnershipBreakdown',
                 'Ponds.Variety',
                 'Ponds.NumberOfPond',
@@ -168,7 +176,8 @@ class PondController extends Controller
             )
                 ->leftjoin('Users','Users.Id','Ponds.CreatedBy')
                 ->where('Ponds.CreatedBy',Auth::user()->Id)
-                ->paginate(10);
+                ->skip($skip)->take($limit)->get();
+
 
             return response()->json([
                 'data' =>$allPondInformation
@@ -185,8 +194,12 @@ class PondController extends Controller
     //Get All Pond Preparation data
     public function getAllPondOperationData(Request $request){
 
+        $skip = $request->skip;
+        $limit = 10;
+
         $validator = Validator::make($request->all(), [
             'PondId' => 'required',
+            'skip' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 400);
@@ -216,7 +229,7 @@ class PondController extends Controller
                 DB::raw("FORMAT(PondDetails.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
             )
                 ->where('PondDetails.PondId',$request->PondId)
-                ->paginate(10);
+                ->skip($skip)->take($limit)->get();
 
             return response()->json([
                 'data' =>$allPondInformation

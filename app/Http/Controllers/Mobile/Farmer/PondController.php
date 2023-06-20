@@ -20,7 +20,7 @@ class PondController extends Controller
 
         $validator = Validator::make($request->all(), [
             'Location' => 'required',
-            'LandSize' => 'required',
+            'PondSizeInBigha' => 'required',
             'LandOwnershipBreakdown' => 'required',
             'Variety' => 'required',
             'NumberOfPond' => 'required',
@@ -47,7 +47,7 @@ class PondController extends Controller
             $pond->UserId = Auth::user()->Id;
             $pond->FarmerName = Auth::user()->Name;
             $pond->Location = $request->Location;
-            $pond->LandSize = Auth::user()->LandSizeInBigha;
+            $pond->PondSizeInBigha = Auth::user()->PondSizeInBigha;
             $pond->LandOwnershipBreakdown = $request->LandOwnershipBreakdown;
             $pond->Variety = $request->Variety;
             $pond->NumberOfPond = $request->NumberOfPond;

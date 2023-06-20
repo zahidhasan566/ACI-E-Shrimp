@@ -75,7 +75,7 @@ class MobileLoginController extends Controller
                 if ($phone && $token = JWTAuth::attempt(['Mobile' => $phone, 'password' => $user->RawPassword])) {
                     $user->OtpVerification = 1;
                     $user->save();
-                    $userDetails = User::select('Name','LandSizeInBigha','Mobile','NID','RoleID','Status','OtpCode')->Where(['Mobile' =>$phone,'otpCode' => $otpCode])->first();
+                    $userDetails = User::select('Name','pondSizeInBigha','Mobile','NID','RoleID','Status','OtpCode')->Where(['Mobile' =>$phone,'otpCode' => $otpCode])->first();
                     return $this->respondWithToken($token,$userDetails);
                 }
                 return response()->json([

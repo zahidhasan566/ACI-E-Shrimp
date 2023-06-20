@@ -157,7 +157,7 @@ class PondController extends Controller
             $allPondInformation = Ponds::select(
                 'Ponds.PondId',
                 'Ponds.Location',
-                'Ponds.LandSize',
+                'Users.PondSizeInBigha',
                 'Ponds.LandOwnershipBreakdown',
                 'Ponds.Variety',
                 'Ponds.NumberOfPond',
@@ -166,6 +166,7 @@ class PondController extends Controller
                 'Ponds.PondImagePath',
                 DB::raw("FORMAT(Ponds.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
             )
+                ->leftjoin('Users','Users.Id','Ponds.CreatedBy')
                 ->where('Ponds.CreatedBy',Auth::user()->Id)
                 ->paginate(10);
 

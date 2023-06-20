@@ -149,8 +149,9 @@ class PondController extends Controller
 
     }
     public function getAllPondPreparationData(Request $request){
-        $skip = $request->skip;
-        $limit = 10;
+        $page = $request->skip;
+        $limit = 20;
+        $offset = $request->page == 1 ? 0 :  $limit * ($request->page - 1);
 
         $validator = Validator::make($request->all(), [
             'skip' => 'required',
@@ -176,7 +177,7 @@ class PondController extends Controller
             )
                 ->leftjoin('Users','Users.Id','Ponds.CreatedBy')
                 ->where('Ponds.CreatedBy',Auth::user()->Id)
-                ->skip($skip)->take($limit)->get();
+                ->skip($offset)->take($limit)->get();
 
 
             return response()->json([
@@ -194,8 +195,9 @@ class PondController extends Controller
     //Get All Pond Preparation data
     public function getAllPondOperationData(Request $request){
 
-        $skip = $request->skip;
-        $limit = 10;
+        $page = $request->skip;
+        $limit = 20;
+        $offset = $request->page == 1 ? 0 :  $limit * ($request->page - 1);
 
         $validator = Validator::make($request->all(), [
             'PondId' => 'required',
@@ -204,7 +206,6 @@ class PondController extends Controller
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 400);
         }
-
         //GET USER BASED DATA
         try {
             $allPondInformation = PondDetails::select(
@@ -229,7 +230,7 @@ class PondController extends Controller
                 DB::raw("FORMAT(PondDetails.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
             )
                 ->where('PondDetails.PondId',$request->PondId)
-                ->skip($skip)->take($limit)->get();
+                ->skip($offset)->take($limit)->get();
 
             return response()->json([
                 'data' =>$allPondInformation

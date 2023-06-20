@@ -11,8 +11,9 @@ class ShrimpAdvisoryController extends Controller
 {
     public function getAllShrimpAdvisoryInformation(Request $request){
 
-        $skip = $request->skip;
-        $limit = 10;
+        $page = $request->skip;
+        $limit = 20;
+        $offset = $request->page == 1 ? 0 :  $limit * ($request->page - 1);
 
         $validator = Validator::make($request->all(), [
             'skip' => 'required',
@@ -31,7 +32,7 @@ class ShrimpAdvisoryController extends Controller
                     'ShrimpAdvisory.DateTo',
                     'ShrimpAdvisory.Status',
 
-                ) ->skip($skip)->take($limit)->get();
+                ) ->skip($offset)->take($limit)->get();
 
                 return response()->json([
                     'data' => $shrimpAdvisoryData,

@@ -57,8 +57,9 @@ class HarvestController extends Controller
     }
 
     public function getAllHarvestData(Request $request){
-        $skip = $request->skip;
-        $limit = 10;
+        $page = $request->skip;
+        $limit = 20;
+        $offset = $request->page == 1 ? 0 :  $limit * ($request->page - 1);
 
         $validator = Validator::make($request->all(), [
             'skip' => 'required',
@@ -79,7 +80,7 @@ class HarvestController extends Controller
 
             )
                 ->where('Harvest.CreatedBy',Auth::user()->Id)
-                ->skip($skip)->take($limit)->get();
+                ->skip($offset)->take($limit)->get();
 
             return response()->json([
                 'data' =>$allHarvestData

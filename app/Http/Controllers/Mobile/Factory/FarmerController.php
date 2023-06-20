@@ -13,8 +13,9 @@ class FarmerController extends Controller
 {
     public function getAllFarmerInformation(Request $request){
 
-        $skip = $request->skip;
-        $limit = 10;
+        $page = $request->skip;
+        $limit = 20;
+        $offset = $request->page == 1 ? 0 :  $limit * ($request->page - 1);
 
         $validator = Validator::make($request->all(), [
             'skip' => 'required',
@@ -37,7 +38,7 @@ class FarmerController extends Controller
                     'Ponds.PondImagePath',
                     DB::raw("FORMAT(Ponds.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
                 )->with('PondOperationInfo:PondId,SpfPl,Feed,BioSecurity,WaterPh,Salinity,PLSource,AmountOfLoanDue,Probiotic,PLQuantity,PLReleaseDate,FeedSource,FeedReleaseDate,DiseaseSymptoms,ExpectedProductionQuantity,ExpectedProductionDate,Grade,Transportation,CreatedAt')
-                    ->skip($skip)->take($limit)->get();
+                    ->skip($offset)->take($limit)->get();
 
                 return response()->json([
                     'data' => $allFarmerInformation

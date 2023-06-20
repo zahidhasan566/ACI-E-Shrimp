@@ -54,8 +54,9 @@ class BuyerProductController extends Controller
     }
 
     public function getAllProductInformation(Request $request){
-        $skip = $request->skip;
-        $limit = 10;
+        $page = $request->skip;
+        $limit = 50;
+        $offset = $request->page == 1 ? 0 :  $limit * ($request->page - 1);
 
         $validator = Validator::make($request->all(), [
             'skip' => 'required',
@@ -76,7 +77,7 @@ class BuyerProductController extends Controller
                     'BuyerProducts.ProductName ',
                     'BuyerProducts.ProductDetails',
                     'BuyerProducts.Status',
-                )->skip($skip)->take($limit)->get();
+                )->skip($offset)->take($limit)->get();
 
                 return response()->json([
                     'data' => $products

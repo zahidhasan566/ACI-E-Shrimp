@@ -74,7 +74,6 @@ class BuyerProductController extends Controller
                     'BuyerProducts.ProductName',
                     'BuyerProducts.ProductImageName',
                     DB::raw("(CASE WHEN BuyerProducts.ProductName IS NOT NULL THEN  '$Path'+ ProductImageName ELSE NULL END) AS ImageLink "),
-                    'BuyerProducts.ProductName ',
                     'BuyerProducts.ProductDetails',
                     'BuyerProducts.Status',
                 )->skip($offset)->take($limit)->get();

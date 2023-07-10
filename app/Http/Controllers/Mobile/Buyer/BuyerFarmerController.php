@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Mobile\Buyer;
 use App\Http\Controllers\Controller;
 use App\Models\Ponds;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BuyerFarmerController extends Controller
 {
@@ -33,9 +34,9 @@ class BuyerFarmerController extends Controller
                 'PondDetails.AmountOfLoanDue',
                 'PondDetails.Probiotic',
                 'PondDetails.PLQuantity',
-                'PondDetails.PLReleaseDate',
+                DB::raw("FORMAT(PondDetails.PLReleaseDate,'dd-MM-yyyy') as PLReleaseDate"),
                 'PondDetails.FeedSource',
-                'PondDetails.FeedReleaseDate',
+                DB::raw("FORMAT(PondDetails.FeedReleaseDate,'dd-MM-yyyy') as FeedReleaseDate"),
                 'PondDetails.DiseaseSymptoms',
                 'PondDetails.ExpectedProductionQuantity',
                 'PondDetails.ExpectedProductionDate',

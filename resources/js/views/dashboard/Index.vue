@@ -28,14 +28,14 @@
                     <div class="mb-4">
                         <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/01.png" alt="" /></div>
                         <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Farmers</h5>
-                        <h4 class="font-500">1,685 <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                        <h4 class="font-500">{{ totalFarmers }} <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
                     </div>
-                    <div class="pt-2">
-                        <div class="float-right">
-                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
-                        </div>
-                        <p class="text-white-50 mb-0">Since last month</p>
-                    </div>
+<!--                    <div class="pt-2">-->
+<!--                        <div class="float-right">-->
+<!--                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>-->
+<!--                        </div>-->
+<!--                        <p class="text-white-50 mb-0">Since last month</p>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -44,15 +44,15 @@
                 <div class="card-body">
                     <div class="mb-4">
                         <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/02.png" alt="" /></div>
-                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Buyers</h5>
-                        <h4 class="font-500">52,368 <i class="mdi mdi-arrow-down text-danger ml-2"></i></h4>
+                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Harvest</h5>
+                        <h4 class="font-500">{{ totalHarvest }} <i class="mdi mdi-arrow-down text-danger ml-2"></i></h4>
                     </div>
-                    <div class="pt-2">
-                        <div class="float-right">
-                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
-                        </div>
-                        <p class="text-white-50 mb-0">Since last month</p>
-                    </div>
+<!--                    <div class="pt-2">-->
+<!--                        <div class="float-right">-->
+<!--                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>-->
+<!--                        </div>-->
+<!--                        <p class="text-white-50 mb-0">Since last month</p>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -62,14 +62,14 @@
                     <div class="mb-4">
                         <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/03.png" alt="" /></div>
                         <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Ponds</h5>
-                        <h4 class="font-500">15.8 <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                        <h4 class="font-500">{{ totalPonds }} <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
                     </div>
-                    <div class="pt-2">
-                        <div class="float-right">
-                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
-                        </div>
-                        <p class="text-white-50 mb-0">Since last month</p>
-                    </div>
+<!--                    <div class="pt-2">-->
+<!--                        <div class="float-right">-->
+<!--                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>-->
+<!--                        </div>-->
+<!--                        <p class="text-white-50 mb-0">Since last month</p>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -78,15 +78,15 @@
                 <div class="card-body">
                     <div class="mb-4">
                         <div class="float-left mini-stat-img mr-4"><img src="assets/images/services-icon/04.png" alt="" /></div>
-                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Achieved</h5>
-                        <h4 class="font-500">2436 <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
+                        <h5 class="font-16 text-uppercase mt-0 text-white-50">Total Buyer Products</h5>
+                        <h4 class="font-500">{{ totalProduct }} <i class="mdi mdi-arrow-up text-success ml-2"></i></h4>
                     </div>
-                    <div class="pt-2">
-                        <div class="float-right">
-                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>
-                        </div>
-                        <p class="text-white-50 mb-0">Since last month</p>
-                    </div>
+<!--                    <div class="pt-2">-->
+<!--                        <div class="float-right">-->
+<!--                            <a href="#" class="text-white-50"><i class="mdi mdi-arrow-right h5"></i></a>-->
+<!--                        </div>-->
+<!--                        <p class="text-white-50 mb-0">Since last month</p>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
@@ -100,7 +100,12 @@ export default {
   mixins: [Common],
   data() {
     return {
-      isLoading: true
+      isLoading: true,
+      totalFarmers:'',
+      totalPonds:'',
+      totalHarvest:'',
+      totalProduct :''
+
     }
   },
   computed: {
@@ -113,15 +118,15 @@ export default {
   },
   methods: {
     getData() {
-      // this.axiosGet('dashboard-data', (response) => {
-      //    this.total_pending = response.total_pending;
-      //    this.todays_order = response.todays_order;
-      //    this.todays_amount = response.todays_amount;
-      //    this.total_order = response.total_order;
+      this.axiosGet('dashboard-data', (response) => {
+         this.totalFarmers = response.totalFarmers;
+         this.totalPonds = response.totalPonds;
+         this.totalHarvest = response.totalHarvest;
+         this.totalProduct = response.totalProduct;
       this.isLoading = false;
-      // }, (error) => {
-      //   this.errorNoti(error);
-      // });
+      }, (error) => {
+        this.errorNoti(error);
+      });
     }
   }
 }

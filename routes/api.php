@@ -26,7 +26,7 @@ Route::group(['middleware' => ['jwt']], function () {
 
 
 Route::group(['middleware' => ['jwt:api']], function () {
-
+    Route::get('dashboard-data',[\App\Http\Controllers\Common\DashboardController::class,'index']);
     // ADMIN USERS
     Route::group(['prefix' => 'user'],function () {
         Route::post('list', [\App\Http\Controllers\Admin\Users\AdminUserController::class, 'index']);

@@ -37,7 +37,7 @@ class FarmerController extends Controller
                     'Ponds.PondPreparationMethod',
                     'Ponds.PondImagePath',
                     DB::raw("FORMAT(Ponds.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
-                )->with('PondOperationInfo:PondId,SpfPl,Feed,BioSecurity,WaterPh,Salinity,PLSource,AmountOfLoanDue,Probiotic,PLQuantity,PLReleaseDate,FeedSource,FeedReleaseDate,DiseaseSymptoms,ExpectedProductionQuantity,ExpectedProductionDate,Grade,Transportation,CreatedAt')
+                )->with('PondOperationInfo')
                     ->skip($offset)->take($limit)->get();
 
                 return response()->json([

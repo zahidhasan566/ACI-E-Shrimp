@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Ponds extends Model
 {
@@ -14,6 +15,19 @@ class Ponds extends Model
     public $timestamps = false;
 
     public function PondOperationInfo(){
-        return $this->hasMany(PondDetails::class,'PondId','PondId');
+        return $this->hasMany(PondDetails::class,'PondId','PondId')
+            ->select([
+                'PondId', 'SpfPl', 'Feed','BioSecurity','WaterPh','Salinity',
+                'PLSource','AmountOfLoanDue','Probiotic','PLQuantity',
+                DB::raw("FORMAT(PLReleaseDate,'dd-MM-yyyy') as PLReleaseDate"),
+                'FeedSource',
+                DB::raw("FORMAT(FeedReleaseDate,'dd-MM-yyyy') as FeedReleaseDate"),
+                'DiseaseSymptoms',
+                'ExpectedProductionQuantity',
+                DB::raw("FORMAT(ExpectedProductionDate,'dd-MM-yyyy') as ExpectedProductionDate"),
+                'Grade',
+                'Transportation',
+                DB::raw("FORMAT(CreatedAt,'dd-MM-yyyy') as CreatedAt"),
+            ]);
     }
 }

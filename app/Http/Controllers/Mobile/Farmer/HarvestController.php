@@ -22,6 +22,7 @@ class HarvestController extends Controller
             'DateOfSalesAtFactoryGate' => 'required|date',
             'AmountOfShrimp' => 'required',
             'SalesPrice' => 'required',
+            'PondId' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['message' => $validator->errors()], 400);
@@ -31,6 +32,7 @@ class HarvestController extends Controller
         try {
             DB::beginTransaction();
             $harvest = new Harvest();
+            $harvest->PondId = $request->PondId;
             $harvest->DateOfProduction = $request->DateOfProduction;
             $harvest->DateOfSalesAtFactoryGate = $request->DateOfSalesAtFactoryGate;
             $harvest->AmountOfShrimp = $request->AmountOfShrimp;
@@ -71,6 +73,7 @@ class HarvestController extends Controller
         //GET USER BASED DATA
         try {
             $allHarvestData = Harvest::select(
+                'Harvest.PondId',
                 'Harvest.HarvestId',
                 DB::raw("FORMAT(Harvest.DateOfProduction,'dd-MM-yyyy') as DateOfProduction"),
                 DB::raw("FORMAT(Harvest.DateOfSalesAtFactoryGate,'dd-MM-yyyy') as DateOfSalesAtFactoryGate"),

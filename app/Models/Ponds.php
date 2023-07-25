@@ -17,17 +17,28 @@ class Ponds extends Model
     public function PondOperationInfo(){
         return $this->hasMany(PondDetails::class,'PondId','PondId')
             ->select([
-                'PondId', 'SpfPl', 'Feed','BioSecurity','WaterPh','Salinity',
-                'PLSource','AmountOfLoanDue','Probiotic','PLQuantity',
-                DB::raw("FORMAT(PLReleaseDate,'dd-MM-yyyy') as PLReleaseDate"),
-                'FeedSource',
-                DB::raw("FORMAT(FeedReleaseDate,'dd-MM-yyyy') as FeedReleaseDate"),
-                'DiseaseSymptoms',
-                'ExpectedProductionQuantity',
-                DB::raw("FORMAT(ExpectedProductionDate,'dd-MM-yyyy') as ExpectedProductionDate"),
-                'Grade',
-                'Transportation',
-                DB::raw("FORMAT(CreatedAt,'dd-MM-yyyy') as CreatedAt"),
+            'PondId', 'SpfPl', 'Feed','BioSecurity','WaterPh','Salinity',
+            'PLSource','AmountOfLoanDue','Probiotic','PLQuantity',
+            DB::raw("FORMAT(PLReleaseDate,'dd-MM-yyyy') as PLReleaseDate"),
+            'FeedSource',
+            DB::raw("FORMAT(FeedReleaseDate,'dd-MM-yyyy') as FeedReleaseDate"),
+            'DiseaseSymptoms',
+            'ExpectedProductionQuantity',
+            DB::raw("FORMAT(ExpectedProductionDate,'dd-MM-yyyy') as ExpectedProductionDate"),
+            'Grade',
+            'Transportation',
+            DB::raw("FORMAT(CreatedAt,'dd-MM-yyyy') as CreatedAt"),
+        ]);
+    }
+    public function harvestInfo(){
+        return $this->hasMany(Harvest::class,'PondId','PondId')
+            ->select([
+                'PondId',
+                DB::raw("FORMAT(DateOfProduction,'dd-MM-yyyy') as DateOfProduction"),
+                DB::raw("FORMAT(DateOfSalesAtFactoryGate,'dd-MM-yyyy') as DateOfSalesAtFactoryGate"),
+                'AmountOfShrimp',
+                'SalesPrice',
             ]);
     }
+
 }

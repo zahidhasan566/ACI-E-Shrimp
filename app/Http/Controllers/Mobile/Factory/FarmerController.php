@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Mobile\Factory;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ponds;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -26,25 +27,33 @@ class FarmerController extends Controller
         else {
             //GET FARMER DATA
             try {
-                $allFarmerInformation = Ponds::select(
-                    'Ponds.PondId',
-                    'Ponds.Location',
-                    'Ponds.PondSizeInBigha',
-                    'Ponds.LandOwnershipBreakdown',
-                    'Ponds.Variety',
-                    'Ponds.NumberOfPond',
-                    'Ponds.Depth',
-                    'Ponds.PondPreparationMethod',
-                    'Ponds.PondImagePath',
-                    DB::raw("FORMAT(Ponds.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
-                )->withCount('PondOperationInfo')->with('PondOperationInfo')
-                    ->skip($offset)->take($limit)->get();
 
-                $totalAllFarmerInformation = $allFarmerInformation->count();
+                $farmerList =  User::
+                select(
+                        'Id',
+                        'Name',
+                        'Email',
+                        'Mobile',
+                        'NID',
+                        'PondSizeInBigha',
+                        'Address',
+                        'RoleID',
+                )
+                    ->withCount('getPondPreparation')
+                    ->with('getPondPreparation','getPondPreparation.PondOperationInfo','getPondPreparation.harvestInfo')
+                    ->with('getPondPreparation',function($q) {
+                        $q->withCount('PondOperationInfo','harvestInfo');
+                    })
+                    ->where('RoleID','Farmer')
+                    ->skip($offset)->take($limit)->get();
+            
+
+
+                $totalAllFarmerInformation = $farmerList->count();
 
                 return response()->json([
                     'AllFarmerInformationCount' => $totalAllFarmerInformation,
-                    'data' => $allFarmerInformation
+                    'data' => $farmerList
 
                 ]);
             } catch (\Exception $exception) {

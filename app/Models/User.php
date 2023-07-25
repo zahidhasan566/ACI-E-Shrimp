@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 
@@ -58,4 +59,30 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasMany(SubMenuPermission::class,'UserId','Id');
     }
+    public function getPondPreparation()
+    {
+        return $this->hasMany(Ponds::class,'UserId','Id')
+            ->select(
+                'UserId',
+                    'PondId',
+                    'Location',
+                    'PondSizeInBigha',
+                    'LandOwnershipBreakdown',
+                    'Variety',
+                    'NumberOfPond',
+                    'Depth',
+                    'PondPreparationMethod',
+                    'PondImagePath',
+                    DB::raw("FORMAT(CreatedAt,'dd-MM-yyyy') as CreatedAt"),
+            );
+    }
+
+//    public function getPondPreparationCount()
+//    {
+//       return  $this->getPondPreparation();
+//    }
+//    public function getPondPreparationInfo(){
+//        return  $this->getPondPreparation()->select('PondId','Location');
+//    }
+
 }

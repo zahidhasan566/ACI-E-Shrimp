@@ -163,26 +163,28 @@ class PondController extends Controller
 
         //GET USER BASED DATA
         try {
-            $allPondInformation = Ponds::select(
-                'Ponds.PondId',
-                'Ponds.Location',
-                'Ponds.PondSizeInBigha',
-                'Ponds.LandOwnershipBreakdown',
-                'Ponds.Variety',
-                'Ponds.NumberOfPond',
-                'Ponds.Depth',
-                'Ponds.PondPreparationMethod',
-                'Ponds.PondImagePath',
-                DB::raw("FORMAT(Ponds.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
-            )
-                ->leftjoin('Users','Users.Id','Ponds.CreatedBy')
-                ->where('Ponds.CreatedBy',Auth::user()->Id)
-                ->skip($offset)->take($limit)->get();
+                $allFarmerInformation = Ponds::select(
+                    'Ponds.PondId',
+                    'Ponds.Location',
+                    'Ponds.PondSizeInBigha',
+                    'Ponds.LandOwnershipBreakdown',
+                    'Ponds.Variety',
+                    'Ponds.NumberOfPond',
+                    'Ponds.Depth',
+                    'Ponds.PondPreparationMethod',
+                    'Ponds.PondImagePath',
+                    DB::raw("FORMAT(Ponds.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
+                )->withCount('PondOperationInfo')->with('PondOperationInfo')
+                    ->where('Ponds.CreatedBy',Auth::user()->Id)
+                    ->skip($offset)->take($limit)->get();
 
+                $totalAllFarmerInformation = $allFarmerInformation->count();
 
-            return response()->json([
-                'data' =>$allPondInformation
-            ]);
+                return response()->json([
+                    'AllFarmerInformationCount' => $totalAllFarmerInformation,
+                    'data' => $allFarmerInformation
+                ]);
+
         } catch (\Exception $exception) {
             return response()->json([
                 'status' => 'error',

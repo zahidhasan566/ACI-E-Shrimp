@@ -34,7 +34,10 @@ class ShrimpAdvisoryController extends Controller
 
                 ) ->skip($offset)->take($limit)->get();
 
+                $shrimpAdvisoryDataCount  = $shrimpAdvisoryData->count();
+
                 return response()->json([
+                    'shrimpAdvisoryDataCount' => $shrimpAdvisoryDataCount,
                     'data' => $shrimpAdvisoryData,
                 ]);
             }

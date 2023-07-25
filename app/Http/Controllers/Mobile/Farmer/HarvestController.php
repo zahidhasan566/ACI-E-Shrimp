@@ -82,7 +82,10 @@ class HarvestController extends Controller
                 ->where('Harvest.CreatedBy',Auth::user()->Id)
                 ->skip($offset)->take($limit)->get();
 
+            $harvestDataCount = $allHarvestData->count();
+
             return response()->json([
+                'harvestDataCount' =>$harvestDataCount,
                 'data' =>$allHarvestData
             ]);
         } catch (\Exception $exception) {

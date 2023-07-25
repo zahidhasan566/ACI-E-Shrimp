@@ -37,11 +37,15 @@ class FarmerController extends Controller
                     'Ponds.PondPreparationMethod',
                     'Ponds.PondImagePath',
                     DB::raw("FORMAT(Ponds.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
-                )->with('PondOperationInfo')
+                )->withCount('PondOperationInfo')->with('PondOperationInfo')
                     ->skip($offset)->take($limit)->get();
 
+                $totalAllFarmerInformation = $allFarmerInformation->count();
+
                 return response()->json([
+                    'AllFarmerInformationCount' => $totalAllFarmerInformation,
                     'data' => $allFarmerInformation
+
                 ]);
             } catch (\Exception $exception) {
                 return response()->json([

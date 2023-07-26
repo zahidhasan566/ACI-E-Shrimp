@@ -2,7 +2,7 @@
     <div class="topbar">
         <!-- LOGO -->
         <div class="topbar-left">
-            <a href="index.html" class="logo">
+            <a href="javascript:void(0)" class="logo">
                 <span style="color: white">ACI E SHRIMP</span><i>ACI E SHRIMP</i>
             </a>
         </div>

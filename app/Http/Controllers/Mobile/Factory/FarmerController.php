@@ -27,7 +27,6 @@ class FarmerController extends Controller
         else {
             //GET FARMER DATA
             try {
-
                 $farmerList =  User::
                 select(
                         'Id',
@@ -38,16 +37,13 @@ class FarmerController extends Controller
                         'PondSizeInBigha',
                         'Address',
                         'RoleID',
-                )
-                    ->withCount('getPondPreparation')
+                )   ->withCount('getPondPreparation')
                     ->with('getPondPreparation','getPondPreparation.PondOperationInfo','getPondPreparation.harvestInfo')
                     ->with('getPondPreparation',function($q) {
                         $q->withCount('PondOperationInfo','harvestInfo');
                     })
                     ->where('RoleID','Farmer')
                     ->skip($offset)->take($limit)->get();
-            
-
 
                 $totalAllFarmerInformation = $farmerList->count();
 

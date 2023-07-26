@@ -34,6 +34,7 @@ class Ponds extends Model
         return $this->hasMany(Harvest::class,'PondId','PondId')
             ->select([
                 'PondId',
+                'HarvestId',
                 DB::raw("FORMAT(DateOfProduction,'dd-MM-yyyy') as DateOfProduction"),
                 DB::raw("FORMAT(DateOfSalesAtFactoryGate,'dd-MM-yyyy') as DateOfSalesAtFactoryGate"),
                 'AmountOfShrimp',

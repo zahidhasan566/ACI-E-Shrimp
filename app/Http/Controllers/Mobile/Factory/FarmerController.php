@@ -45,7 +45,7 @@ class FarmerController extends Controller
                     ->where('RoleID','Farmer')
                     ->skip($offset)->take($limit)->get();
 
-                $totalAllFarmerInformation = $farmerList->count();
+                $totalAllFarmerInformation =  User::where('RoleID','Farmer')->count();
 
                 return response()->json([
                     'AllFarmerInformationCount' => $totalAllFarmerInformation,

@@ -180,9 +180,9 @@ class PondController extends Controller
                 ->where('Ponds.CreatedBy',Auth::user()->Id)
                 ->skip($offset)->take($limit)->get();
 
-            $allPondInformationCount = $allPondInformation->count();
+            $allPondInformationCount = Ponds::where('CreatedBy',Auth::user()->Id)->count();
             return response()->json([
-                'allPondInformationCount' =>$allPondInformationCount,
+                'allPondPreparationCount' =>$allPondInformationCount,
                 'data' =>$allPondInformation
             ]);
         } catch (\Exception $exception) {
@@ -232,9 +232,13 @@ class PondController extends Controller
                 DB::raw("FORMAT(PondDetails.CreatedAt,'dd-MM-yyyy') as CreatedAt"),
             )
                 ->where('PondDetails.PondId',$request->PondId)
+                ->where('PondDetails.CreatedBy',Auth::user()->Id)
                 ->skip($offset)->take($limit)->get();
 
+            $allPondOperationCount = PondDetails::where('CreatedBy',Auth::user()->Id)->count();
+
             return response()->json([
+                'allPondOperationCount' =>$allPondOperationCount,
                 'data' =>$allPondInformation
             ]);
         } catch (\Exception $exception) {

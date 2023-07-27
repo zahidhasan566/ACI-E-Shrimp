@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('login', [\App\Http\Controllers\Auth\AuthController::class, 'login']);
-Route::post('', [\App\Http\Controllers\Mobile\Auth\MobileLoginController::class, 'index']);
+Route::post('mobile-login', [\App\Http\Controllers\Mobile\Auth\MobileLoginController::class, 'index']);
 Route::post('otp-verification', [\App\Http\Controllers\Mobile\Auth\MobileLoginController::class, 'otpVerification']);
 
 

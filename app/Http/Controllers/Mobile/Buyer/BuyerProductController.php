@@ -78,8 +78,11 @@ class BuyerProductController extends Controller
                     'BuyerProducts.Status',
                 )->skip($offset)->take($limit)->get();
 
+                $getTotal = BuyerProducts::all()->count();
+
                 return response()->json([
-                    'data' => $products
+                    'data' => $products,
+                    'getTotal' => $getTotal
                 ]);
             }catch (\Exception $exception) {
                 return response()->json([

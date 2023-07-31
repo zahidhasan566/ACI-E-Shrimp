@@ -55,7 +55,7 @@ class BuyerProductController extends Controller
 
     public function getAllProductInformation(Request $request){
         $page = $request->skip;
-        $limit = 50;
+        $limit = 20;
         $offset = $page == 1 ? 0 :  $limit * ($page - 1);
 
         $validator = Validator::make($request->all(), [
@@ -81,8 +81,9 @@ class BuyerProductController extends Controller
                 $getTotal = BuyerProducts::all()->count();
 
                 return response()->json([
-                    'data' => $products,
-                    'getTotal' => $getTotal
+                    'getTotal' => $getTotal,
+                    'data' => $products
+
                 ]);
             }catch (\Exception $exception) {
                 return response()->json([

@@ -34,6 +34,7 @@ class FarmerController extends Controller
                         'Email',
                         'Mobile',
                         'NID',
+                        'Cluster',
                         'PondSizeInBigha',
                         'Address',
                         'RoleID',

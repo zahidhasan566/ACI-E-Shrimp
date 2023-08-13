@@ -159,6 +159,7 @@ class MobileLoginController extends Controller
                 'PondSizeInBigha'=> Auth::user()->PondSizeInBigha,
                 'Address'=> Auth::user()->Address,
                 'RoleID'=> Auth::user()->RoleID,
+                'Cluster'=> Auth::user()->Cluster,
                 'Status'=> Auth::user()->Status
                 ],
             'token_type' => 'bearer',

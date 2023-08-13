@@ -139,7 +139,18 @@
                                             </div>
                                         </ValidationProvider>
                                     </div>
-
+                                    <div class="col-12 col-md-6">
+                                        <ValidationProvider name="cluster" mode="eager"
+                                                            v-slot="{ errors }">
+                                            <div class="form-group">
+                                                <label for="cluster">Cluster </label>
+                                                <input type="text" class="form-control"
+                                                       :class="{'error-border': errors[0]}"
+                                                       v-model="cluster" placeholder="Enter Cluster Name">
+                                                <span class="error-message"> {{ errors[0] }}</span>
+                                            </div>
+                                        </ValidationProvider>
+                                    </div>
                                     <div class="col-12">
                                         <p class="font-weight-bold">Submenu Permission</p>
                                     </div>
@@ -197,6 +208,7 @@ export default {
             actionType: '',
             buttonShow: false,
             roles: [],
+            cluster: '',
             allSubMenu: [],
             allSubMenuId: [],
             existingUserIDs:[],
@@ -216,7 +228,6 @@ export default {
                 console.log(row.Id)
                 this.axiosGet('user/get-user-info/' + row.Id, function (response) {
                     var user = response.data;
-                    console.log( "test"+ response.data.user_submenu)
                     instance.title = 'Update User';
                     instance.buttonText = "Update";
                     instance.Name = user.Name;
@@ -227,6 +238,7 @@ export default {
                     instance.mobile = user.Mobile;
                     instance.email = user.Email;
                     instance.status = user.Status;
+                    instance.cluster = user.Cluster;
                     instance.userType = {
                         RoleName: user.roles.RoleName,
                         RoleID: user.roles.RoleID
@@ -253,6 +265,7 @@ export default {
                     this.password = '',
                     this.confirm = '',
                     this.userType = '',
+                    this.cluster = '',
                     this.allSubMenu = [];
                 this.buttonShow = true;
                 this.actionType = 'add'
@@ -291,6 +304,7 @@ export default {
                 NID: this.NID,
                 Address: this.Address,
                 userType: this.userType,
+                cluster:this.cluster,
                 password: this.password,
                 selectedSubMenu: this.allSubMenuId
             }, (response) => {

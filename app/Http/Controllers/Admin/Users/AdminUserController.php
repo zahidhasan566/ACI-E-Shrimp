@@ -23,10 +23,11 @@ class AdminUserController extends Controller
             ->where(function ($q) use ($search) {
                 $q->where('Name', 'like', '%' . $search . '%');
                 $q->orWhere('Id', 'like', '%' . $search . '%');
+                $q->orWhere('Mobile', 'like', '%' . $search . '%');
             })
             ->where('Users.RoleID', '!=', 'SuperAdmin')
             ->orderBy('Id', 'asc')
-            ->select('Id', 'Name', 'Email','Mobile','NID', 'Address', 'Roles.RoleName as Role')
+            ->select('Id', 'Name', 'Email','Mobile','NID', 'Address','Roles.RoleName as Role','Cluster')
             ->paginate($take);
         return $users;
     }
@@ -67,6 +68,7 @@ class AdminUserController extends Controller
             $user->RawPassword = ($request->password);
             $user->Password = bcrypt($request->password);
             $user->RoleID = $request->userType['RoleID'];
+            $user->Cluster = $request->cluster;
             $user->Status = $request->status;
             $user->CreatedBy = Auth::user()->Id;
             $user->UpdatedBy = Auth::user()->Id;
@@ -131,6 +133,7 @@ class AdminUserController extends Controller
             $user->RawPassword = ($request->password);
             $user->Password = bcrypt($request->password);
             $user->RoleID = $request->userType['RoleID'];
+            $user->Cluster = $request->cluster;
             $user->Status = $request->status;
             $user->CreatedBy =$request->UserId;
             $user->UpdatedBy =$request->UserId;

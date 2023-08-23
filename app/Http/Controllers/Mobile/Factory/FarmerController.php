@@ -14,15 +14,15 @@ class FarmerController extends Controller
 {
     public function getAllFarmerInformation(Request $request){
 
-        $page = $request->skip;
-        $limit = 20;
-        $offset = $page == 1 ? 0 :  $limit * ($page - 1);
+//        $page = $request->skip;
+//        $limit = 20;
+//        $offset = $page == 1 ? 0 :  $limit * ($page - 1);
 
         $validator = Validator::make($request->all(), [
-            'skip' => 'required',
+            //'skip' => 'required',
         ]);
         if ($validator->fails()) {
-            return response()->json(['message' => $validator->errors()], 400);
+           // return response()->json(['message' => $validator->errors()], 400);
         }
         else {
             //GET FARMER DATA
@@ -44,7 +44,8 @@ class FarmerController extends Controller
                         $q->withCount('PondOperationInfo','harvestInfo');
                     })
                     ->where('RoleID','Farmer')
-                    ->skip($offset)->take($limit)->get();
+//                    ->skip($offset)->take($limit)->get();
+                    ->get();
 
                 $totalAllFarmerInformation =  User::where('RoleID','Farmer')->count();
 
